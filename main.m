@@ -54,5 +54,5 @@ ori_pts(2,:) = sampleMultiple(points(2,:),sampleSize)
 %plot(ori_pts(1,:),ori_pts(2,:))
 trs_pts = pts
 trs_pts(3,:) = []
-err = mse(trs_pts,pts)
+err = mse(trs_pts,ori_pts)
 plot(err)
