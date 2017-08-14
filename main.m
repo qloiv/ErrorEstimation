@@ -1,3 +1,4 @@
+
 joints = [pi/2,0,0] %gelenkstellungen angeben (3)
 arms = [1,1,1]
 rob = planarRRR(); %roboter festlegen
@@ -56,3 +57,15 @@ trs_pts = pts
 trs_pts(3,:) = []
 err = mse(trs_pts,ori_pts)
 plot(err)
+
+figure
+ax1 = subplot(2,1,1);
+plot(err)
+title(ax1,'Error')
+
+ax2 = subplot(2,1,2);
+plot(pts(1,:),pts(2,:));
+hold on;
+plot(ori_pts(1,:),ori_pts(2,:))
+title(ax2,'Original and Transformed Points')
+hold off;
