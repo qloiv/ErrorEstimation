@@ -37,8 +37,8 @@ ikine = rob.ikine(T,base,M); %erst position, dann orientation
 T_ikine_sol = fkin(arms,ikine) 
 T_my_ikin_sol = fkin(arms,my_ikin)
 T_my_ikin_sol2 = fkin(arms,my_ikin2)
-sampleSize = 9
-points = sample([0;1],[0;0],2,3); %sample points from line
+sampleSize = 20
+points = sample([0;0],[0;1],2,2); %sample points from line
 pim = sym(pi)
 angles = [0,0,0] %das sind die winkel der letzten armstücke an jedem punkt aus points
 transformed_points = (transform(points, angles,arms)) %to joint space
@@ -58,14 +58,3 @@ trs_pts(3,:) = []
 err = mse(trs_pts,ori_pts)
 plot(err)
 
-figure
-ax1 = subplot(2,1,1);
-plot(err)
-title(ax1,'Error')
-
-ax2 = subplot(2,1,2);
-plot(pts(1,:),pts(2,:));
-hold on;
-plot(ori_pts(1,:),ori_pts(2,:))
-title(ax2,'Original and Transformed Points')
-hold off;
