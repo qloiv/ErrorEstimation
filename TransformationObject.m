@@ -1,4 +1,4 @@
-classdef TransformationObject
+classdef TransformationObject < handle
     %TRANSFORMATIONOBJECT Summary of this class goes here
     %   Detailed explanation goes here
     
@@ -10,13 +10,12 @@ classdef TransformationObject
         angles
         arms
         
-        original_pts
-        
-        transformed_pts_tsp
-        
+        original_pts       
+        transformed_pts_tsp        
         transformed_pts_jsp
-        error = 100 %% TODO choose max
+        error
         trajectory
+        meanError
     end
     
     methods
@@ -27,6 +26,7 @@ classdef TransformationObject
             obj.sampleSize_2 = sampleSize_2;
             obj.angles = angles;
             obj.arms = arms;
+            obj.meanError = realmax;
         end
         function obj = toJSpace(obj)
             obj.original_pts = sample(obj.start_pt,obj.end_pt,-1,obj.sampleSize_1); %sample points from line
@@ -47,13 +47,14 @@ classdef TransformationObject
             trs_pts = obj.transformed_pts_tsp;
             trs_pts(3,:) = [];
             obj.error = mse(trs_pts,ori_pts);
+            obj.meanError = sum(obj.error)/size(obj.error,2)
         end
         function plot(obj)
             
             figure
             ax1 = subplot(2,1,1);
-            plot(err)
-            title(ax1,'Error')
+            plot(obj.error)
+            title(ax1,strcat('Error',obj.meanError))
 
             ax2 = subplot(2,1,2);
             plot(obj.transformed_pts_tsp(1,:),obj.transformed_pts_tsp(2,:));
