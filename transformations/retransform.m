@@ -3,13 +3,13 @@ function [ rt_vec ] = retransform(arms,joints)
 % output: rt_vec mit pro eintrag sind die koordinaten des punktes und der
 % winkel
 %   Detailed explanation goes here
-    joint_pts = size(joints,2)
-    num_joints = size(arms,2)
+    joint_pts = size(joints,2);
+    num_joints = size(arms,2);
     rt_vec = []
     for j = 1:joint_pts
         pose = joints(:,j) %j-te spalte  
-        fki = fkin2(arms,pose)
-        rt_vec(:,j) = fki
+        fki = fkin2(arms,pose);
+        rt_vec(:,j) = fki;
        
     end
 end
