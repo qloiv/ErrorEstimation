@@ -1,8 +1,8 @@
-error_rate = 0.0001;
+error_rate = 0.00001;
 sSize1 = 2;
 sSize2 = 20;
 angles_ori = zeros(1,sSize1);
-angles = sampleMultiple(angles_ori,i);
+angles = sampleMultiple(angles_ori,2);
 while(1)
 t_obj = TransformationObject([0;0],[0;1],sSize1, sSize2, angles,[1,1,1]);
 t_obj.toJSpace()
@@ -14,5 +14,5 @@ if(t_obj.meanError <= error_rate)
     break
 end
 angles = sampleMultiple(angles, 3);
-sSize1 = size(angles,2)
+sSize1 = size(angles,2);
 end

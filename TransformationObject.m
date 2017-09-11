@@ -16,6 +16,7 @@ classdef TransformationObject < handle
         error
         trajectory
         meanError
+        maxError
     end
     
     methods
@@ -27,6 +28,7 @@ classdef TransformationObject < handle
             obj.angles = angles;
             obj.arms = arms;
             obj.meanError = realmax;
+            obj.maxError = realmax;
         end
         function obj = toJSpace(obj)
             obj.original_pts = sample(obj.start_pt,obj.end_pt,-1,obj.sampleSize_1); %sample points from line
@@ -48,6 +50,7 @@ classdef TransformationObject < handle
             trs_pts(3,:) = [];
             obj.error = mse(trs_pts,ori_pts);
             obj.meanError = sum(obj.error)/size(obj.error,2)
+            obj.maxError = max(max(obj.error));
         end
         function plot(obj)
             
