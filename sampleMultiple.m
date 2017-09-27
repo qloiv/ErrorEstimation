@@ -1,16 +1,20 @@
-function [ sample_list ] = sampleMultiple( point_list,sample_size )
-%SAMPLEMULTIPLE Summary of this function goes here
-%   Detailed explanation goes here
-%erzeugt aus den gegebenen punkten in point_list mit der gegebenen anzahl
-%zwischenpunkte numberofpoints -1 eine neue sample liste
-%muss ich evtl umschreiben falls zu langsam
+function [ sample_list ] = sampleMultiple( point_list,insert_number )
+%SAMPLEMULTIPLE Erzeugt einen Zeilenvektor mit 'insert_number'-vielen
+%   Zwischenpunkten zwischen je zwei Punkten aus 'point_list'.
+%   
+%   SL = sampleMultiple(PL,0) gibt Kopie der ursprünglichen Liste
+%   zurück.(dann muss bei aufeinanderfolgenden Punkten mit 2
+%   gesamplet werden)
+%   SL = sampleMultiple(PL,1) gibt Liste zurück, bei der n-1 Punkte
+%   eingefügt wurden. (Ein Punkt wurde hinter jedem Punkt außer dem letzten
+%   eingefügt.)(dann muss mit 3 gesampelt werden)
+
 
     sample_list = point_list(1);
         for i = 1:size(point_list,2)-1
-            samp = sample(point_list(i),point_list(i+1),-1,sample_size);
+            samp = sample(point_list(i),point_list(i+1),-1,insert_number+2);
             samp(1) =  [];
-            sample_list = [sample_list,samp];
-            
+            sample_list = [sample_list,samp];            
         end
 
 end
