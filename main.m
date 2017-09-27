@@ -52,10 +52,10 @@ end
 % %build trajectory from transformed points
 % traj = (trajectory1(transformed_points,sampleSize)) %in joint space
 % pts = retransform(arms,traj) %from joint space to 
-% s = sampleMultiple(points(1,:), sampleSize)
+% s = sample_multiple(points(1,:), sampleSize)
 % ori_pts = []
 % ori_pts(1,:) = s
-% ori_pts(2,:) = sampleMultiple(points(2,:),sampleSize)
+% ori_pts(2,:) = sample_multiple(points(2,:),sampleSize)
 % %plot(pts(1,:),pts(2,:));hold on;
 % %plot(ori_pts(1,:),ori_pts(2,:))
 % trs_pts = pts

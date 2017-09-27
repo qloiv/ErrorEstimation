@@ -43,8 +43,8 @@ classdef TransformationObject < handle
         end
         function obj = computeError(obj)
             ori_pts = [];
-            ori_pts(1,:) = sampleMultiple(obj.original_pts(1,:), obj.sampleSize_2);
-            ori_pts(2,:) = sampleMultiple(obj.original_pts(2,:),obj.sampleSize_2);
+            ori_pts(1,:) = sample_multiple(obj.original_pts(1,:), obj.sampleSize_2);
+            ori_pts(2,:) = sample_multiple(obj.original_pts(2,:),obj.sampleSize_2);
 
             trs_pts = obj.transformed_pts_tsp;
             trs_pts(3,:) = [];

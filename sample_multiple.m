@@ -1,4 +1,4 @@
-function [ sample_list ] = sampleMultiple( point_list,insert_number )
+function [ sample_list ] = sample_multiple( point_list,insert_number )
 %SAMPLEMULTIPLE Erzeugt einen Zeilenvektor mit 'insert_number'-vielen
 %   Zwischenpunkten zwischen je zwei Punkten aus 'point_list'.
 %   

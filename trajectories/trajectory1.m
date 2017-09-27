@@ -14,7 +14,7 @@ function [ trajectory ] = trajectory1( joint_list ,sample_size )
     for j = 1:num_joints
         joint_movements = joint_list(j,:)
         
-        sample_list = sampleMultiple(joint_movements,sample_size)
+        sample_list = sample_multiple(joint_movements,sample_size)
         trajectory(j,:)= (sample_list)
     end
         
