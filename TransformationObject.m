@@ -48,22 +48,30 @@ classdef TransformationObject < handle
 
             trs_pts = obj.transformed_pts_tsp;
             trs_pts(3,:) = [];
-            obj.error = mse(trs_pts,ori_pts);
-            obj.meanError = sum(obj.error)/size(obj.error,2)
+            abstand = sqrt(sum((trs_pts - ori_pts).^2));
+            abstand_quadriert = sum((trs_pts-ori_pts).^2);
+            obj.error = sum((trs_pts-ori_pts).^2);
+            obj.meanError = sum(obj.error)/size(obj.error,2);
             obj.maxError = max(max(obj.error));
         end
         function plot(obj)
             
             figure
             ax1 = subplot(2,1,1);
-            plot(obj.error)
-            title(ax1,strcat('Error',obj.meanError))
+            max_values = find(obj.error > obj.maxError - obj.maxError*0.05);
+            min_val = min(max_values);
+            plot(obj.error);
+            %line(xlim,[min_val,min_val])
+            hold on;
+            plot(max_values, obj.maxError, 'd');
+            str = strcat('Error (meanError=',num2str(obj.meanError),')');
+            title(ax1,str);
 
             ax2 = subplot(2,1,2);
             plot(obj.transformed_pts_tsp(1,:),obj.transformed_pts_tsp(2,:));
             hold on;
-            plot(obj.original_pts(1,:),obj.original_pts(2,:))
-            title(ax2,'Original and Transformed Points')
+            plot(obj.original_pts(1,:),obj.original_pts(2,:));
+            title(ax2,'Original and Transformed Points');
             hold off;
        end
     

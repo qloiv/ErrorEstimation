@@ -10,10 +10,19 @@ function [ trajectory ] = trajectory1( joint_list ,sample_size )
     doublings = joint_pts-2
     all_el_with_dd = (joint_pts-1)*sample_size
     num_el = all_el_with_dd-doublings
-    trajectory = ones(num_joints,num_el)
+   % trajectory = ones(num_joints,num_el)
     for j = 1:num_joints
         joint_movements = joint_list(j,:)
-        
+        %joint list einträge sind im bereich -pi bis pi wenn das vorzeichen
+        %wechselt und ein Eintrag pi oder -pi ist, ist es also besser wenn
+        %dieser eintrag zu -pi oder pi wird
+        if(abs(joint_movements(end)-joint_movements(1))> pi)
+            if(abs(wrapTo2Pi(joint_movements(end))-joint_movements(1))<pi)
+                joint_movements(end) = wrapTo2Pi(joint_movements(end))
+            else
+                joint_movements(1) = wrapTo2Pi(joint_movements(1))
+            end
+        end
         sample_list = sample_multiple(joint_movements,sample_size)
         trajectory(j,:)= (sample_list)
     end

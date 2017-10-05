@@ -25,7 +25,8 @@ classdef Jointspace_Object
         function obj = Jointspace_Object(transformation_setting, taskspace_object)
             obj.setting = transformation_setting
             obj.checkpoint_number = taskspace_object.checkpoint_number
-            obj.trajectory_checkpoints = transform(taskspace_object.predefined_path
+            obj.trajectory_checkpoints = transform(taskspace_object.predefined_path)
+        end
     end
     
 end
