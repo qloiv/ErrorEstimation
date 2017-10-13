@@ -4,9 +4,9 @@ length1= 1
 length2 = 1
 length3 = 1
 
-sol1 = (length1)*cos(theta1)+length2*cos(theta1+theta2)+length3*cos(theta1+theta2+theta3);
-sol2 = (length1)*sin(theta1)+length2*sin(theta1+theta2)+length3*sin(theta1+theta2+theta3);
-sol3 = (theta1+theta2+theta3);
+sol1 = (length1)*cos(theta1)+length2*cos(theta1+theta2)+length3*cos(theta1+theta2+theta3); %x
+sol2 = (length1)*sin(theta1)+length2*sin(theta1+theta2)+length3*sin(theta1+theta2+theta3); %y
+sol3 = (theta1+theta2+theta3); %groß theta
 
 J = [diff(sol1,theta1),diff(sol1,theta2),diff(sol1,theta3); 
     diff(sol2,theta1),diff(sol2,theta2),diff(sol2,theta3);

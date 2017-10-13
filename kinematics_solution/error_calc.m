@@ -1,8 +1,7 @@
-syms bx by omega o_wrist1 o_wrist2 o_wrist3 l stuff ax cx ay cy
+syms bx by omega o_wrist1 o_wrist2 l stuff ax cx ay cy
 syms length1 length2 length3 l positive
  o_wrist1 = bx - length3*cos(omega);
  o_wrist2 = by-length3*sin(omega);
- o_wrist3 = 0;
 
 l = o_wrist1^2+o_wrist2^2;
 
