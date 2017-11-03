@@ -4,6 +4,7 @@ function [ t_vec ] = transform( points, angles,length )
 % (als tripel)
 
 t_vec = sym(ones(3,size(angles,2)));
+
 for i = 1:size(angles,2)
     iki = ikin(points(1,i),points(2,i),angles(i),length);
 
