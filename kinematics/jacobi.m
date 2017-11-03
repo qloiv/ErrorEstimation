@@ -1,8 +1,8 @@
-%syms length1 length2 length3 positive
+syms length1 length2 length3 positive
 syms theta1 theta2 theta3 
-length1= 1
-length2 = 1
-length3 = 1
+% length1= 1
+% length2 = 1
+% length3 = 1
 
 sol1 = (length1)*cos(theta1)+length2*cos(theta1+theta2)+length3*cos(theta1+theta2+theta3); %x
 sol2 = (length1)*sin(theta1)+length2*sin(theta1+theta2)+length3*sin(theta1+theta2+theta3); %y

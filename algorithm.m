@@ -4,7 +4,7 @@ sSize2 = 40; % gibt an wie viele Zwischenpunkte zwischen jedem Punkt eingefügt 
 angles_ori = zeros(1,sSize1);
 angles = sample_multiple(angles_ori,0);
 while(1)
-t_obj = TransformationObject([0;0],[0;-1],sSize1, sSize2, angles,[1,1,1]);
+t_obj = TransformationObject([1;0],[0;0],sSize1, sSize2, angles,[1,1,1]);
 t_obj.toJSpace()
 t_obj.trajGen()
 t_obj.toTSpace()

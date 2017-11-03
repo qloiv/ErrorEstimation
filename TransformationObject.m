@@ -17,6 +17,9 @@ classdef TransformationObject < handle
         trajectory
         meanError
         maxError
+        original_pts_polar_phi
+        original_pts_polar_r
+        dets
     end
     
     methods
@@ -32,7 +35,17 @@ classdef TransformationObject < handle
         end
         function obj = toJSpace(obj)
             obj.original_pts = sample(obj.start_pt,obj.end_pt,-1,obj.sampleSize_1); %sample points from line
+            [obj.original_pts_polar_phi,obj.original_pts_polar_r] = cart2pol(obj.original_pts(1,:),(obj.original_pts(2,:)));
             obj.transformed_pts_jsp = (transform(obj.original_pts, obj.angles,obj.arms)); %to joint space
+            %berechne determinante von jacobi matrix mit werten(winkeln)
+            %aus den spalten von pts_jsp
+            
+            for x =  1:size(obj.transformed_pts_jsp,2)
+                
+                col = obj.transformed_pts_jsp(:,x)
+                [j,d] = jac(1,1,1,col(1),col(2),col(3))
+                obj.dets(x) = d
+            end
         end
         function obj = trajGen(obj)
             %build trajectory from transformed points
@@ -73,6 +86,11 @@ classdef TransformationObject < handle
             plot(obj.original_pts(1,:),obj.original_pts(2,:));
             title(ax2,'Original and Transformed Points');
             hold off;
+            
+            %berechne determinante an max_values
+            figure
+            plot(obj.dets, obj.original_pts)
+            
        end
     
     end
