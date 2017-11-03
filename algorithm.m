@@ -1,4 +1,4 @@
-error = 0.00001;
+error = 0.001;
 sSize1 = 2; % gibt an, wieviele Punkte der Linie im kartesischen Raum ausgewählt werden
 sSize2 = 40; % gibt an wie viele Zwischenpunkte zwischen jedem Punkt eingefügt werden
 angles_ori = zeros(1,sSize1);

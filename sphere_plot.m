@@ -36,7 +36,6 @@ tit = strcat('length = ', num2str(len), ', determinante = ', num2str(dete))
 K = J*D;
 [a,b,c] = sphere
 figure
-
 surf(a,b,c)
 hold on
  scatter3(x,y,z,...

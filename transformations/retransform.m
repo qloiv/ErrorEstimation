@@ -5,7 +5,7 @@ function [ rt_vec ] = retransform(arms,joints)
 %   Detailed explanation goes here
     joint_pts = size(joints,2);
     num_joints = size(arms,2);
-    rt_vec = []
+    rt_vec = sym([])
     for j = 1:joint_pts
         pose = joints(:,j) %j-te spalte  
         fki = fkin2(arms,pose);
