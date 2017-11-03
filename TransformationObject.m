@@ -64,7 +64,7 @@ classdef TransformationObject < handle
             %line(xlim,[min_val,min_val])
             hold on;
             plot(max_values, obj.maxError, 'd');
-            str = strcat('Error (meanError=',num2str(obj.meanError),')');
+            str = strcat('Error (meanError=',num2str(double(obj.meanError)),')'); %double precision
             title(ax1,str);
 
             ax2 = subplot(2,1,2);

@@ -29,10 +29,12 @@ y = subs(y,theta,pi/4)
 z = subs(z,r,1)
 z = subs(z,phi,pi/4)
 z = subs(z,theta,pi/4)
-
+len = num2str(norm(:,J(:,1)))
+det = num2str(D)
 K = J*D
 [a,b,c] = sphere
 figure
+title("length of 1stvector = len, determinant = det")
 surf(a,b,c)
 hold on
  scatter3(x,y,z,...

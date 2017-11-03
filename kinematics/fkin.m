@@ -1,5 +1,6 @@
 function T = fkin(length,theta)
-
+length = sym(length)
+theta = sym(theta)
 rotation_m_1 = [cos(theta(1)),-sin(theta(1));sin(theta(1)),cos(theta(1))];
 rotation_m_2 = [cos(theta(2)),-sin(theta(2));sin(theta(2)),cos(theta(2))];
 rotation_m_3 = [cos(theta(3)),-sin(theta(3));sin(theta(3)),cos(theta(3))];

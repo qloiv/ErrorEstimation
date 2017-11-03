@@ -10,7 +10,7 @@ function [ points ] = sample( start_pt, end_pt, distance, point_number )
         point_number = 1/distance*norm(end_pt-start_pt)+1; %distance im raum
     end
     direction = end_pt - start_pt;
-    points = start_pt + direction * linspace(0,1,point_number);
+    points = repmat(start_pt,1,point_number) + direction * linspace(0,1,point_number);
 
 end
 
