@@ -20,6 +20,7 @@ classdef TransformationObject < handle
         original_pts_polar_phi
         original_pts_polar_r
         dets
+        kond
     end
     
     methods
@@ -42,10 +43,18 @@ classdef TransformationObject < handle
             
             for x =  1:size(obj.transformed_pts_jsp,2)
                 
-                col = obj.transformed_pts_jsp(:,x)
-                [j,d] = jac(1,1,1,col(1),col(2),col(3))
-                obj.dets(x) = d
+                col = obj.transformed_pts_jsp(:,x);
+                [j,d] = jac(1,1,1,col(1),col(2),col(3));
+                obj.dets(x) = d;
+                if x==1
+                    def = obj.dets(x)
+                else
+                 def = obj.dets(x)-obj.dets(x-1);
+                end
+            e = eig(j);
+            obj.kond(x) = double(max(e))/double(min(e));
             end
+          
         end
         function obj = trajGen(obj)
             %build trajectory from transformed points
@@ -90,6 +99,9 @@ classdef TransformationObject < handle
             %berechne determinante an max_values
             figure
             plot(obj.dets, obj.original_pts)
+            
+            figure
+            plot(obj.kond)
             
        end
     

@@ -1,6 +1,7 @@
 function [ jacobi_matrix, determinante ] = jac( length1,length2,length3,theta_vector1,theta_vector2,theta_vector3 )
 %JAC Summary of this function goes here
-%   gibt für eine Konfiguration an einem Punkt des workspaces
+%   gibt für eine Konfiguration an einem Punkt des workspaces die jakobi
+%   matrix und ihre determinante zurück
 %   Detailed explanation goes here
 
 syms theta1 theta2 theta3 
@@ -15,6 +16,7 @@ J_sub = subs(J,theta1,theta_vector1)
 J_sub = subs(J_sub,theta2,theta_vector2)
 J_sub = subs(J_sub,theta3,theta_vector3)
 D = det(J_sub)
+%D_ = length1*length2*sin(theta1 + theta2)*cos(theta1) - length1*length2*cos(theta1 + theta2)*sin(theta1)
 jacobi_matrix = J_sub
 determinante = double(D)
 end

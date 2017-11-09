@@ -16,13 +16,21 @@ function [ trajectory ] = trajectory1( joint_list ,sample_size )
         %joint list einträge sind im bereich -pi bis pi wenn das vorzeichen
         %wechselt und ein Eintrag pi oder -pi ist, ist es also besser wenn
         %dieser eintrag zu -pi oder pi wird
-        if(abs(joint_movements(end)-joint_movements(1))> pi)
-            if(abs(wrapTo2Pi(joint_movements(end))-joint_movements(1))<pi)
-                joint_movements(end) = wrapTo2Pi(joint_movements(end))
+        if(double(abs(joint_movements(end)-joint_movements(1)))> pi)
+            if(joint_movements(end) == pi || joint_movements(end) == -pi)
+                joint_movements(end) = -1*joint_movements(end)
             else
-                joint_movements(1) = wrapTo2Pi(joint_movements(1))
+                joint_movements(1) = -1*joint_movements(1)
             end
         end
+        %for numeric variables
+%         if(abs(joint_movements(end)-joint_movements(1))> pi)
+%             if(abs(wrapTo2Pi(joint_movements(end))-joint_movements(1))<pi)
+%                 joint_movements(end) = wrapTo2Pi(joint_movements(end))
+%             else
+%                 joint_movements(1) = wrapTo2Pi(joint_movements(1))
+%             end
+%         end
         sample_list = sample_multiple(joint_movements,sample_size)
         trajectory(j,:)= (sample_list)
     end
