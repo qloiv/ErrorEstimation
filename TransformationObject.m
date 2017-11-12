@@ -63,8 +63,8 @@ classdef TransformationObject < handle
             obj.trajectory = (trajectory1(obj.transformed_pts_jsp,obj.sampleSize_2)); %in joint space
             for p = 1:length(obj.trajectory)
                 point = obj.trajectory(:,p)
-                obj.dets2(p) = obj.arms(1)*obj.arms(2)*sin(point(1) + point(2))*cos(p(1)) - obj.arms(1)*obj.arms(2)*cos(point(1) + point(2))*sin(point(1))
-                [j,d] = jac(1,1,1,point(1),point(2),point(3));
+                obj.dets2(p) = obj.arms(1)*obj.arms(2)*sin(point(1) + point(2))*cos(point(1)) - obj.arms(1)*obj.arms(2)*cos(point(1) + point(2))*sin(point(1))
+                [j,d] = jac(obj.arms(1),obj.arms(2),obj.arms(3),point(1),point(2),point(3));
 %                obj.dets2(p) = d;
                 if p==1
                     def = obj.dets2(p)
@@ -114,9 +114,11 @@ classdef TransformationObject < handle
             %berechne determinante an max_values
             figure
             plot(obj.dets2, obj.error)
+            title('Determinanten und Fehler')
             
             figure
-            plot(obj.kond2)
+            plot(obj.kond2,obj.error)
+            title('Konditionszahl und Fehler')
             
        end
     
