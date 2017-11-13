@@ -11,16 +11,16 @@ sol3 = (theta1+theta2+theta3); %groß theta
 
 J = [diff(sol1,theta1),diff(sol1,theta2),diff(sol1,theta3); 
     diff(sol2,theta1),diff(sol2,theta2),diff(sol2,theta3);
-    diff(sol3,theta1),diff(sol3,theta2),diff(sol3,theta3)]
-J_sub = subs(J,theta1,theta_vector1)
-J_sub = subs(J_sub,theta2,theta_vector2)
-J_sub = subs(J_sub,theta3,theta_vector3)
-J_sub = subs(J_sub,length1, l1)
-J_sub = subs(J_sub,length2, l2)
-J_sub = subs(J_sub,length3, l3)
-D = det(J_sub)
+    diff(sol3,theta1),diff(sol3,theta2),diff(sol3,theta3)];
+J_sub = subs(J,theta1,theta_vector1);
+J_sub = subs(J_sub,theta2,theta_vector2);
+J_sub = subs(J_sub,theta3,theta_vector3);
+J_sub = subs(J_sub,length1, l1);
+J_sub = subs(J_sub,length2, l2);
+J_sub = subs(J_sub,length3, l3);
+D = det(J_sub);
 %D_ = length1*length2*sin(theta1 + theta2)*cos(theta1) - length1*length2*cos(theta1 + theta2)*sin(theta1)
-jacobi_matrix = J_sub
-determinante = double(D)
+jacobi_matrix = J_sub;
+determinante = double(D);
 end
 
