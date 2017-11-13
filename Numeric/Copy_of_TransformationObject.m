@@ -1,4 +1,4 @@
-classdef TransformationObject < handle
+classdef Copy_of_TransformationObject < handle
     %TRANSFORMATIONOBJECT Summary of this class goes here
     %   Detailed explanation goes here
     
@@ -9,7 +9,6 @@ classdef TransformationObject < handle
         end_pt
         angles
         arms
-        
         original_pts       
         transformed_pts_tsp        
         transformed_pts_jsp
@@ -19,8 +18,6 @@ classdef TransformationObject < handle
         maxError
         original_pts_polar_phi
         original_pts_polar_r
-        dets
-        kond
         dets2
         kond2
     end
@@ -38,31 +35,29 @@ classdef TransformationObject < handle
         end
         function obj = toJSpace(obj)
             obj.original_pts = sample(obj.start_pt,obj.end_pt,-1,obj.sampleSize_1); %sample points from line
-            [obj.original_pts_polar_phi,obj.original_pts_polar_r] = cart2pol(obj.original_pts(1,:),(obj.original_pts(2,:)));
-            obj.transformed_pts_jsp = (transform(obj.original_pts, obj.angles,obj.arms)); %to joint space
+           % [obj.original_pts_polar_phi,obj.original_pts_polar_r] = cart2pol(obj.original_pts(1,:),(obj.original_pts(2,:)));
+            obj.transformed_pts_jsp = (Copy_of_transform(obj.original_pts, obj.angles,obj.arms)); %to joint space
             %berechne determinante von jacobi matrix mit werten(winkeln)
             %aus den spalten von pts_jsp
                       
         end
         function obj = trajGen(obj)
             %build trajectory from transformed points
-            obj.trajectory = (trajectory1(obj.transformed_pts_jsp,obj.sampleSize_2)); %in joint space
+            obj.trajectory = (Copy_of_trajectory1(obj.transformed_pts_jsp,obj.sampleSize_2)); %in joint space
             for p = 1:length(obj.trajectory)
-                point = obj.trajectory(:,p)
-                obj.dets2(p) = obj.arms(1)*obj.arms(2)*sin(point(1) + point(2))*cos(point(1)) - obj.arms(1)*obj.arms(2)*cos(point(1) + point(2))*sin(point(1))
-                [j,d] = jac(obj.arms(1),obj.arms(2),obj.arms(3),point(1),point(2),point(3));
-%                obj.dets2(p) = d;
+                point = obj.trajectory(:,p);
+                obj.dets2(p) = obj.arms(1)*obj.arms(2)*sin(point(1) + point(2))*cos(point(1)) - obj.arms(1)*obj.arms(2)*cos(point(1) + point(2))*sin(point(1));
+                [j,d] = Copy_of_jac(obj.arms(1),obj.arms(2),obj.arms(3),point(1),point(2),point(3));
                 if p==1
-                    def = obj.dets2(p)
+                    def = obj.dets2(p);
                 else
                  def = obj.dets2(p)-obj.dets2(p-1);
                 end
-            e = eig(j);
-            obj.kond2(p) = abs(double(max(e)))/abs(double(min(e)));
+            obj.kond2(p) = cond(j);
             end
         end
         function obj = toTSpace(obj)
-            obj.transformed_pts_tsp = retransform(obj.arms,obj.trajectory); %from joint space to 
+            obj.transformed_pts_tsp = Copy_of_retransform(obj.arms,obj.trajectory); %from joint space to 
         end
         function obj = computeError(obj)
             ori_pts = [];
@@ -88,22 +83,30 @@ classdef TransformationObject < handle
             hold on;
             plot(max_values, obj.maxError, 'd');
             str = strcat('Error (meanError=',num2str(double(obj.meanError)),')'); %double precision
+            xlabel('Samplingpunkte')
+            ylabel('Fehlergröße')
             title(ax1,str);
 
             ax2 = subplot(2,1,2);
             plot(obj.transformed_pts_tsp(1,:),obj.transformed_pts_tsp(2,:));
             hold on;
             plot(obj.original_pts(1,:),obj.original_pts(2,:));
-            title(ax2,'Original and Transformed Points');
+            xlabel('Weg in x-Richtung')
+            ylabel('Weg in y-Richtung')
+            title(ax2,'Originale und transformierte Punkte');
             hold off;
             
             %berechne determinante an max_values
             figure
             plot(obj.dets2, obj.error)
+            xlabel('Fehlergröße')
+            ylabel('Determinante')
             title('Determinanten und Fehler')
             
             figure
             plot(obj.kond2,obj.error)
+            xlabel('Fehlergröße')
+            ylabel('Konditionszahl')
             title('Konditionszahl und Fehler')
             
        end
