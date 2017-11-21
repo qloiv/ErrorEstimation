@@ -24,3 +24,8 @@ JI_sub = inv(J_sub)
 %JI_pseudo = inv(J'*J)*J'
 JI_pseudo = pinv(J)
 JI_pseudo_sub=pinv(J_sub)
+
+%det0_solution = sin(theta2)*length1*length2 = 0
+%det0_solution = sin(theta2) = 0
+%singulariätät falls sin(theta2) == 0
+%das bedeutet dass man wahrscheinlich dann mehr samplepunkte braucht
