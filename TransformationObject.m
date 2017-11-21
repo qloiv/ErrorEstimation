@@ -19,8 +19,6 @@ classdef TransformationObject < handle
         maxError
         original_pts_polar_phi
         original_pts_polar_r
-        dets
-        kond
         dets2
         kond2
     end
@@ -42,37 +40,22 @@ classdef TransformationObject < handle
             obj.transformed_pts_jsp = (transform(obj.original_pts, obj.angles,obj.arms)); %to joint space
             %berechne determinante von jacobi matrix mit werten(winkeln)
             %aus den spalten von pts_jsp
-            
-            for x =  1:size(obj.transformed_pts_jsp,2)
-                
-                col = obj.transformed_pts_jsp(:,x);
-                [j,d] = jac(1,1,1,col(1),col(2),col(3));
-                obj.dets(x) = d;
-                if x==1
-                    def = obj.dets(x)
-                else
-                 def = obj.dets(x)-obj.dets(x-1);
-                end
-            e = eig(j);
-            obj.kond(x) = abs(double(max(e)))/abs(double(min(e)));
-            end
-          
+                      
         end
         function obj = trajGen(obj)
             %build trajectory from transformed points
             obj.trajectory = (trajectory1(obj.transformed_pts_jsp,obj.sampleSize_2)); %in joint space
             for p = 1:length(obj.trajectory)
-                point = obj.trajectory(:,p)
+                point = obj.trajectory(:,p);
                 obj.dets2(p) = obj.arms(1)*obj.arms(2)*sin(point(1) + point(2))*cos(point(1)) - obj.arms(1)*obj.arms(2)*cos(point(1) + point(2))*sin(point(1))
                 [j,d] = jac(obj.arms(1),obj.arms(2),obj.arms(3),point(1),point(2),point(3));
 %                obj.dets2(p) = d;
                 if p==1
-                    def = obj.dets2(p)
+                    def = obj.dets2(p);
                 else
                  def = obj.dets2(p)-obj.dets2(p-1);
                 end
-            e = eig(j);
-            obj.kond2(p) = abs(double(max(e)))/abs(double(min(e)));
+            obj.kond2(p) = cond(j);
             end
         end
         function obj = toTSpace(obj)
