@@ -1,5 +1,8 @@
 
-joints = [-pi,0,0] %gelenkstellungen angeben (3)
+joints =[ (5*pi)/6, -(2*pi)/3, pi/3]
+
+
+ %gelenkstellungen angeben (3)
 arms = [1,1,1]
 rob = planarRRR(); %roboter festlegen
 
